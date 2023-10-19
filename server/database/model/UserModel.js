@@ -5,7 +5,9 @@ let User;
 const UserSchema=mongoose.Schema(
     {
         username:String,
-        password:String
+        password:String,
+        course:String,
+        college:String
     }
 )
 

@@ -3,6 +3,8 @@ import loginStyle from "../Stylesheet/loginStyle";
 import { useContext, useState } from "react";
 import axios from "axios";
 import UserContext from "../Context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 export default function Loginscreen({navigation}){
     
     const [username,setUsername]=useState()
@@ -16,7 +18,14 @@ export default function Loginscreen({navigation}){
             })
         if(response.data.message==="success"){
             Alert.alert("successful login")
+            let tokenresponse=await axios.post(url+"/createtoken",{
+                username:username,
+                password:password
+            })
+            
+            AsyncStorage.setItem('token',tokenresponse.data.token)
             navigation.navigate("Home")
+
         }else{
             Alert.alert(response.data.message)
             setPassword("")
@@ -28,7 +37,9 @@ export default function Loginscreen({navigation}){
             <View style={loginStyle.logincontainer}>
                 <TextInput style={loginStyle.textinput} onChangeText={(value)=> setUsername(value)} placeholder="enter your username" value={username} ></TextInput>
                 <TextInput style={loginStyle.textinput} onChangeText={(value)=> setPassword(value) } placeholder="enter your password" value={password} ></TextInput>
+
                 <Button title="Login" onPress={handleLogin} ></Button>
+                <Button title="admin login" onPress={()=> navigation.navigate('Admin')}></Button>
             </View>
 
         </View>

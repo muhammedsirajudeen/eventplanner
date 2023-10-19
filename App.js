@@ -5,6 +5,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Homescreen from './Screens/Homescreen';
 import Loginscreen from './Screens/Loginscreen';
 import Signupscreen from './Screens/Signupscreen';
+import Profilescreen from './Screens/Profilescreen';
+import Eventscreen from './Screens/Eventscreen';
+import Adminscreen from './Screens/Adminscreen';
 
 import UserContext from './Context';
 export default function App() {
@@ -14,10 +17,12 @@ export default function App() {
     <UserContext.Provider value={url}>
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen name="Signup" component={Signupscreen}/>
+        <Stack.Screen name="Signup" component={Signupscreen}/>
         <Stack.Screen name="Login" component={Loginscreen}/>
-
         <Stack.Screen name="Home" component={Homescreen}/>
+        <Stack.Screen name="Profile" component={Profilescreen}/>
+        <Stack.Screen name="Event" component={Eventscreen}/>
+        <Stack.Screen name="Admin" component={Adminscreen}/>
 
 
       </Stack.Navigator>
