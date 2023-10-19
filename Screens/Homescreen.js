@@ -4,7 +4,7 @@ export default function Homescreen(){
     
     return(
         <View>
-        <Text>jesrin mariyam  </Text>
+        <Text>Home Screen</Text>
         </View>
 
     )    

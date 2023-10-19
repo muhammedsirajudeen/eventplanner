@@ -16,7 +16,7 @@ const loginStyle=StyleSheet.create(
             borderColor:"black",
             borderWidth:1,
             borderRadius:10,
-            height:200,
+            height:300,
             width:"80%",
      
          

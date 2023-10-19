@@ -3,7 +3,7 @@ import loginStyle from "../Stylesheet/loginStyle";
 import { useContext, useState } from "react";
 import axios from "axios";
 import UserContext from "../Context";
-export default function Loginscreen(){
+export default function Loginscreen( {navigation} ){
     const url=useContext(UserContext)
     const [username,setUsername]=useState()
     const [password,setPassword]=useState()
@@ -13,8 +13,8 @@ export default function Loginscreen(){
            Alert.alert("password not same")
             console.log(password,confirmpassword)
             setPassword("")
+
             setConfirmpassword("")
-            setPasswordnotsame(true)
             
         }else{
             console.log(password,confirmpassword)
@@ -23,11 +23,21 @@ export default function Loginscreen(){
                 username:username,
                 password:password
             })
-            console.log(response.data)
-            setPasswordnotsame(false)
+            if(response.data.message!=="success"){
+                Alert.alert(response.data.message)
+                setUsername("")
+                setPassword("")
+                setConfirmpassword("")
+            }else{
+                Alert.alert("user created")
+                navigation.navigate('Login')
+            }
     
         }
 
+    }
+    function handleLoginclick(){
+        navigation.navigate("Login")
     }
     return(
         <View style={loginStyle.maincontainer} >
@@ -35,8 +45,8 @@ export default function Loginscreen(){
                 <TextInput style={loginStyle.textinput} onChangeText={(value)=> setUsername(value)} placeholder="enter your username" value={username} ></TextInput>
                 <TextInput style={loginStyle.textinput} onChangeText={(value)=> setPassword(value) } placeholder="enter your username"value={password} ></TextInput>
                 <TextInput style={loginStyle.textinput} onChangeText={(value)=> setConfirmpassword(value) } placeholder="confirm your password" value={confirmpassword} ></TextInput>
-                <Button title="Login" onPress={handleSignup} ></Button>
-                
+                <Button title="Signup" onPress={handleSignup} ></Button>
+                <Button title="continue to login" onPress={handleLoginclick}></Button>
             </View>
 
         </View>
