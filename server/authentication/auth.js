@@ -1,5 +1,6 @@
 const express=require("express")
 const User=require("../database/model/UserModel")()
+const AdminUser=require("../database/model/AdminUserModel")()
 const jwt=require("jsonwebtoken")
 const router=express.Router()
 
@@ -67,6 +68,26 @@ router.post('/login',async (req,res)=>{
     }
 
 })
+
+
+router.post('/adminlogin',async (req,res)=>{
+    try{
+        let docs=await AdminUser.findOne({username:req.body.username})
+        if(docs){
+           
+            if(docs.username===req.body.username && docs.password===req.body.password) res.json({message:"success"})
+            else res.json({message:"invalid credentialss"})
+            
+        }else{
+            res.json({message:"there is no user by that name"})
+        }
+    }catch(error){
+        console.log(error)
+        res.json({message:"error"})
+    }
+})
+
+
 
 
 
