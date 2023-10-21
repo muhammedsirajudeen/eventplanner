@@ -16,10 +16,20 @@ router.post('/createtoken',async (req,res)=>{
 router.post('/verifytoken',async (req,res)=>{
     let token=req.body.token
     try{
-        let decoded=jwt.verify(token,secretKey)
-        let doc=await User.findOne({username:decoded.username})
+        if(req.body.role==="admin"){
+            let decoded=jwt.verify(token,secretKey)
+            let doc=await AdminUser.findOne({username:decoded.username})
+    
+            res.json({message:"success",decoded:doc})
 
-        res.json({message:"success",decoded:doc})
+        }
+        else{
+            let decoded=jwt.verify(token,secretKey)
+            let doc=await User.findOne({username:decoded.username})
+    
+            res.json({message:"success",decoded:doc})
+                
+        }
     
     }catch(error){
         console.log(error)

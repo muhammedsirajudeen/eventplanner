@@ -27,6 +27,17 @@ const admindataStyle=StyleSheet.create(
             width:"60%",
             height:40,
             borderWidth:1
+        },
+        navigationcontainer:{
+            display:"flex",
+            justifyContent:"center",
+            alignItems:"center",
+            height:40,
+
+        },
+        collegename:{
+            fontSize:20,
+            fontWeight:"900"
         }
     }
 )

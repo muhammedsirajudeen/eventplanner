@@ -3,6 +3,7 @@ import adminStyle from "../Stylesheet/adminStyle"
 import { useContext, useState } from "react";
 import UserContext from "../Context";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function Adminscreen({navigation}){
     const [username,setUsername]=useState()
     const [password,setPassword]=useState()
@@ -14,6 +15,12 @@ export default function Adminscreen({navigation}){
         })
         if(response.data.message==="success"){
             Alert.alert("success")
+            let tokenresponse=await axios.post(url+"/createtoken",
+            {
+                username:username,
+                password:password
+            })
+            AsyncStorage.setItem("token",tokenresponse.data.token)
             navigation.navigate("AdminData")
         }else{
             Alert.alert(response.data.message)
