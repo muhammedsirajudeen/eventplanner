@@ -15,7 +15,7 @@ const admindataStyle=StyleSheet.create(
             alignItems:"center",
             justifyContent:"space-evenly",
             width:"80%",
-            height:400,
+            minHeight:400,
             borderWidth:1,
             borderRadius:10
         },
@@ -38,6 +38,15 @@ const admindataStyle=StyleSheet.create(
         collegename:{
             fontSize:20,
             fontWeight:"900"
+        },
+        eventcontainer:{
+            display:"flex"
+        },
+        eventsubcontainer:{
+            display:"flex",
+            margin:10,
+            justifyContent:'space-evenly',
+            flexDirection:"row"
         }
     }
 )

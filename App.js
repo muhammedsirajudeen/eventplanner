@@ -8,8 +8,10 @@ import Signupscreen from './Screens/Signupscreen';
 import Profilescreen from './Screens/Profilescreen';
 import Eventscreen from './Screens/Eventscreen';
 import Adminscreen from './Screens/Adminscreen';
-import AdminDataScreen from './Screens/AdminDataScreen';
+import AdminDatascreen from './Screens/AdminDatascreen';
+
 import UserContext from './Context';
+import AddEventscreen from './Screens/AddEventScreen';
 export default function App() {
   const url="http://192.168.1.7:3000"
   const Stack=createNativeStackNavigator()
@@ -23,8 +25,9 @@ export default function App() {
         <Stack.Screen name="Profile" component={Profilescreen}/>
         <Stack.Screen name="Event" component={Eventscreen}/>
         <Stack.Screen name="Admin" component={Adminscreen}/>
-        <Stack.Screen name="AdminData" component={AdminDataScreen}/>
-
+        <Stack.Screen name="AdminData" component={AdminDatascreen}/>
+        <Stack.Screen name="AddEvent" component={AddEventscreen}/>
+        
 
       </Stack.Navigator>
     </NavigationContainer>
