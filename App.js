@@ -9,7 +9,7 @@ import Profilescreen from './Screens/Profilescreen';
 import Eventscreen from './Screens/Eventscreen';
 import Adminscreen from './Screens/Adminscreen';
 import AdminDatascreen from './Screens/AdminDatascreen';
-
+import AddMarkscreen from './Screens/AddMarkscreen';
 import UserContext from './Context';
 import AddEventscreen from './Screens/AddEventScreen';
 export default function App() {
@@ -27,7 +27,7 @@ export default function App() {
         <Stack.Screen name="Admin" component={Adminscreen}/>
         <Stack.Screen name="AdminData" component={AdminDatascreen}/>
         <Stack.Screen name="AddEvent" component={AddEventscreen}/>
-        
+        <Stack.Screen name="AddMark" component={AddMarkscreen}/>
 
       </Stack.Navigator>
     </NavigationContainer>

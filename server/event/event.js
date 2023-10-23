@@ -11,7 +11,6 @@ router.post('/addevent',async (req,res)=>{
         const decoded=jwt.verify(req.body.token,process.env.SECRET_KEY)
         let doc=await AdminUser.findOne({username:decoded.username})
         req.body.eventcollege=doc.college
-        console.log(req.body)
         let newEvent=new Event(req.body)
         newEvent.save()
         res.json({message:"success"})
@@ -34,6 +33,18 @@ router.post("/getevent",async (req,res)=>{
     }catch(error){
         console.log(error)
         res.json({message:"error occured"})
+    }
+})
+
+router.delete("/popevent/:id",async (req,res)=>{
+    const id=req.params.id
+
+    try{
+        await Event.findByIdAndRemove(id)
+        res.json({message:"success"})
+    }catch(error){
+        console.log(error)
+        res.json({message:"error"})
     }
 })
 

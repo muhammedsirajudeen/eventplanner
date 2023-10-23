@@ -55,7 +55,6 @@ export default function AddEventscreen({navigation}){
                 token:token
             }
             )
-            console.log(eventresponse.data)
             setEvents(eventresponse.data.eventarray)
         }
         else{
@@ -64,8 +63,12 @@ export default function AddEventscreen({navigation}){
 
     }
 
-    function deleteHandler(id){
+    async function deleteHandler(id){
         console.log(id)
+        let response=await axios.delete(url+`/event/popevent/${id}`)
+        if(response.data.message==="success"){
+            setEvents(events.filter((event)=> event._id!==id))
+        }
     }
     return(
         <ScrollView>
