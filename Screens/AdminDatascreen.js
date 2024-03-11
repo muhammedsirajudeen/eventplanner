@@ -1,46 +1,70 @@
-import { useContext, useEffect, useState } from "react";
-import { View ,Text, TextInput, Button, Alert} from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import admindataStyle from "../Stylesheet/admindataStyle";
 import UserContext from "../Context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-export default function AdminDatascreen({navigation}){
-    const [collegename,setCollegename]=useState()
 
-    const url=useContext(UserContext)
-    useEffect(()=>{
-        async function getToken(){
-            let token=await AsyncStorage.getItem("token")
-            if(token){
-                let tokenresponse=await axios.post(url+"/verifytoken",
-                {
-                    role:"admin",
-                    token:token
-                }
-                )
-                setCollegename(tokenresponse.data.decoded.college)
-            } else{
-                navigation.navigate("Admin")
-            }         
-        }
-        getToken()
-    },[])
-    
+export default function AdminDatascreen({ navigation }) {
+  const [collegename, setCollegename] = useState();
 
-    return(
-        <View style={admindataStyle.maincontainer} >
-            <View style={admindataStyle.navigationcontainer}>
-                <Text style={admindataStyle.collegename} >  {collegename} </Text>
-            </View>
+  const url = useContext(UserContext);
 
-            <View style={admindataStyle.subcontainer}>
+  useEffect(() => {
+    async function getToken() {
+      let token = await AsyncStorage.getItem("token");
+      if (token) {
+        let tokenresponse = await axios.post(url + "/verifytoken", {
+          role: "admin",
+          token: token,
+        });
+        setCollegename(tokenresponse.data.decoded.college);
+      } else {
+        navigation.navigate("Admin");
+      }
+    }
+    getToken();
+  }, []);
 
-                <Button title="addschedule" onPress={()=> navigation.navigate("AddSchedule")}></Button>
-                <Button title="addattendance" onPress={()=>navigation.navigate("AddAttendance")}></Button>
-                <Button title="addmarks" onPress={()=>navigation.navigate("AddMark")}></Button>
-                <Button title="addevent" onPress={()=>navigation.navigate("AddEvent")} ></Button>
-          </View>
-            
-        </View>
-    )
+  return (
+    <View style={admindataStyle.maincontainer}>
+      <View style={admindataStyle.navigationcontainer}>
+        <Text style={admindataStyle.collegename}>{collegename}</Text>
+        <Text style={admindataStyle.subtitle}>Welcome to the Admin Panel</Text>
+      </View>
+
+      <ScrollView contentContainerStyle={admindataStyle.scrollContainer}>
+        <TouchableOpacity
+          style={[admindataStyle.button, admindataStyle.addScheduleButton]}
+          onPress={() => navigation.navigate("AddSchedule")}
+        >
+          <Text style={admindataStyle.buttonText}>Add Schedule</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[admindataStyle.button, admindataStyle.addAttendanceButton]}
+          onPress={() => navigation.navigate("AddAttendance")}
+        >
+          <Text style={admindataStyle.buttonText}>Add Attendance</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[admindataStyle.button, admindataStyle.addMarksButton]}
+          onPress={() => navigation.navigate("AddMark")}
+        >
+          <Text style={admindataStyle.buttonText}>Add Marks</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[admindataStyle.button, admindataStyle.addEventButton]}
+          onPress={() => navigation.navigate("AddEvent")}
+        >
+          <Text style={admindataStyle.buttonText}>Add Event</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[admindataStyle.button, admindataStyle.addNoticeButton]}
+          onPress={() => navigation.navigate("AddNotice")}
+        >
+          <Text style={admindataStyle.buttonText}>Add Notice</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </View>
+  );
 }

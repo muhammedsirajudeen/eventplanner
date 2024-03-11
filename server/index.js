@@ -13,5 +13,10 @@ app.use('/',authentication)
 app.use('/event',event)
 app.use('/grade',grade)
 
+
+app.get('/',(req,res)=>{
+    res.send("hey")
+})
+
 //starting server here
-app.listen(3000,()=> console.log("server started"))
+app.listen(3000,'192.168.1.6',()=> console.log("server started at 3000"))

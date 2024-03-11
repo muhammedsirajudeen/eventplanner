@@ -95,8 +95,14 @@ export default function Loginscreen( {navigation} ){
                 />
                     
                 </View>
-                <Button title="Signup" onPress={handleSignup} ></Button>
-                <Button title="continue to login" onPress={handleLoginclick}></Button>
+                <View style={loginStyle.button}>
+                <Button  style={loginStyle.button} title="Signup" onPress={handleSignup} ></Button>
+
+                </View>
+                <View style={loginStyle.button}>
+                <Button style={loginStyle.button}  title="continue to login" onPress={handleLoginclick}></Button>
+
+                </View>
             </View>
 
         </View>

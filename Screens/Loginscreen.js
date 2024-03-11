@@ -38,8 +38,13 @@ export default function Loginscreen({navigation}){
                 <TextInput style={loginStyle.textinput} onChangeText={(value)=> setUsername(value)} placeholder="enter your username" value={username} ></TextInput>
                 <TextInput style={loginStyle.textinput} onChangeText={(value)=> setPassword(value) } placeholder="enter your password" value={password} ></TextInput>
 
+                <View style={loginStyle.button}>
                 <Button title="Login" onPress={handleLogin} ></Button>
+                </View>
+                <View style={loginStyle.button}>
                 <Button title="admin login" onPress={()=> navigation.navigate('Admin')}></Button>
+
+                </View>
             </View>
 
         </View>

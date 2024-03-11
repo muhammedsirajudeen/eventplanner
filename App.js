@@ -13,7 +13,7 @@ import AddMarkscreen from './Screens/AddMarkscreen';
 import UserContext from './Context';
 import AddEventscreen from './Screens/AddEventScreen';
 export default function App() {
-  const url="http://192.168.1.7:3000"
+  const url="http://192.168.1.6:3000"
   const Stack=createNativeStackNavigator()
   return (
     <UserContext.Provider value={url}>

@@ -4,7 +4,8 @@ const GradeModelSchema=mongoose.Schema(
     {
         name:String,
         grade:String,
-        college:String
+        college:String,
+        course:String
     }
 )
 
