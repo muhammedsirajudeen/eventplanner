@@ -12,6 +12,9 @@ import AdminDatascreen from './Screens/AdminDatascreen';
 import AddMarkscreen from './Screens/AddMarkscreen';
 import UserContext from './Context';
 import AddEventscreen from './Screens/AddEventScreen';
+import AddAttendaceScreen from './Screens/AddAttendanceScreen';
+import AddNotice from './Screens/AddNotice';
+import NoticeScreen from './Screens/NoticeScreen';
 export default function App() {
   const url="http://192.168.1.6:3000"
   const Stack=createNativeStackNavigator()
@@ -28,6 +31,9 @@ export default function App() {
         <Stack.Screen name="AdminData" component={AdminDatascreen}/>
         <Stack.Screen name="AddEvent" component={AddEventscreen}/>
         <Stack.Screen name="AddMark" component={AddMarkscreen}/>
+        <Stack.Screen name="AddAttendance" component={AddAttendaceScreen}/>
+        <Stack.Screen name="AddNotice" component={AddNotice}/>
+        <Stack.Screen name="Notice" component={NoticeScreen}/>
 
       </Stack.Navigator>
     </NavigationContainer>

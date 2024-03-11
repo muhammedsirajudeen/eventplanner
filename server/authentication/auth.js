@@ -26,7 +26,7 @@ router.post('/verifytoken',async (req,res)=>{
         else{
             let decoded=jwt.verify(token,secretKey)
             let doc=await User.findOne({username:decoded.username})
-    
+            console.log(doc)
             res.json({message:"success",decoded:doc})
                 
         }

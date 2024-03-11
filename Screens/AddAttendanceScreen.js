@@ -6,13 +6,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import SelectDropdown from "react-native-select-dropdown";
 
 import axios from "axios"
-export default function AddMarkscreen() {
+export default function AddAttendaceScreen() {
   const [name, setName] = useState("");
-  const [grade, setGrade] = useState("");
-  const [semester,setSemester]=useState("")
+  const [attendace, setAttendance] = useState("");
   const url = useContext(UserContext);
   const [selectedValue,setSelectedValue]=useState()
   const [students,setStudents]=useState([])
+  const [semester,setSemester]=useState("")
   useEffect(()=>{
     async function getAllStudents(){
       let response=(await axios.get(url+"/student/student")).data
@@ -30,16 +30,16 @@ export default function AddMarkscreen() {
   async function uploadHandler() {
     // Data upload to server logic here
     let token=await AsyncStorage.getItem('token')
-    let response=(await axios.post(url+"/grade/addgrade",{
+    let response=(await axios.post(url+"/grade/addattendace",{
       name:name,
-      grade:grade,
+      attendance:attendace,
       token:token,
       semester:semester
       }
     )).data
     console.log(response)
     if(response.message==="success"){
-      Alert.alert("grade have been updated")
+      Alert.alert("attendace have been updated")
     }
   }
 
@@ -67,9 +67,9 @@ export default function AddMarkscreen() {
 
         <TextInput
           style={addmarkStyle.input}
-          placeholder="Enter student overall grade"
-          value={grade}
-          onChangeText={(value) => setGrade(value)}
+          placeholder="Enter student overall attendance"
+          value={attendace}
+          onChangeText={(value) => setAttendance(value)}
         />
                 <TextInput
           style={addmarkStyle.input}
@@ -77,7 +77,8 @@ export default function AddMarkscreen() {
           value={semester}
           onChangeText={(value) => setSemester(value)}
         />
-        <Button title="Upload Mark" onPress={uploadHandler} color="#007BFF" />
+
+        <Button title="Upload Attendance" onPress={uploadHandler} color="#007BFF" />
       </View>
     </View>
   );
