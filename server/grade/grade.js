@@ -6,6 +6,7 @@ const Grade=require("../database/model/GradeModel")()
 const AdminUser=require("../database/model/AdminUserModel")()
 const Attendance=require("../database/model/AttendanceModel")()
 const Notice=require("../database/model/NoticeModel")()
+const Event=require("../database/model/EventModel")()
 
 
 const jwt=require("jsonwebtoken")
@@ -24,8 +25,8 @@ router.post('/details',async (req,res)=>{
     let decoded=jwt.verify(req.body.token,secretKey)
 
     let doc=await UserModel.findOne({username:decoded.username})
-    let grade=await Grade.find({name:decoded.username})
-    let attendance=await Attendance.find({name:decoded.username})
+    let grade=await Grade.find({admissionnumber:doc.admissionnumber})
+    let attendance=await Attendance.find({admissionnumber:doc.admissionnumber})
     res.json({message:"success",profile:doc,attendance:attendance,grade:grade})
 })
 
@@ -39,7 +40,7 @@ router.post('/addgrade',async (req,res)=>{
     console.log(doc)
     let grade=new Grade(
         {
-            name:req.body.name,
+            admissionnumber:req.body.admissionnumber,
             grade:req.body.grade,
             college:doc.college,
             semester:req.body.semester
@@ -65,7 +66,7 @@ router.post('/addattendace',async (req,res)=>{
     try{
         let attendance=new Attendance(
             {
-                name:req.body.name,
+                admissionnumber:req.body.admissionnumber,
                 semester:req.body.semester,
                 attendance:req.body.attendance,
                 college:doc.college
@@ -101,6 +102,19 @@ router.post('/addnotice',async (req,res)=>{
     }catch(error){
         console.log(error)
         res.json({message:"error"})    
+
+    }
+})
+
+
+//get events
+router.get("/event", async (req,res)=>{
+    try{
+        let events=await Event.find()
+        res.json({message:"success",event:events})
+    }catch(error){
+        console.log(error)
+        res.json({message:"error"})
 
     }
 })

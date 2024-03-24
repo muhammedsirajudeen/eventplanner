@@ -3,6 +3,25 @@ const User=require("../database/model/UserModel")()
 const AdminUser=require("../database/model/AdminUserModel")()
 const jwt=require("jsonwebtoken")
 const router=express.Router()
+const nodemailer = require('nodemailer');
+
+let CURRENT_OTP=""
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'muhammedsirajudeen29@gmail.com',
+        pass: 'eilq xprp yolv yjrv',
+    },
+});
+// Generate a random four-digit number
+function generateRandomFourDigitNumber() {
+    // Generate a random number between 1000 and 9999
+    return Math.floor(1000 + Math.random() * 9000);
+}
+
+// Example usage
+
 
 
 //add middleware for jwt authentication
@@ -45,8 +64,26 @@ router.post('/signup',async (req,res)=>{
             res.json({message:"user already present"})
         }else{
             const newUser=new User(req.body)
-            await newUser.save()
-            res.json({message:"success"})
+            CURRENT_OTP=generateRandomFourDigitNumber()
+            const mailOptions = {
+                from: 'muhammedsirajudeen29@gmail.com',
+                to: 'sangeethkavumpurath123@gmail.com',
+                subject: 'OTP',
+                text: CURRENT_OTP.toString() ,
+            };
+            transporter.sendMail(mailOptions, async (error, info) => {
+                if (error) {
+                    res.json({message:"resubmit details"})
+
+                    return console.log('Error:', error);
+
+                }
+                console.log('Message sent:', info.response);
+                await newUser.save()
+
+                res.json({message:"success"})
+
+            });
         }
     
     }catch(error){
@@ -96,6 +133,22 @@ router.post('/adminlogin',async (req,res)=>{
         res.json({message:"error"})
     }
 })
+router.post('/verifyotp',async (req,res)=>{
+    try{
+        let {otp}=req.body
+        console.log(otp,CURRENT_OTP)
+        if(otp===CURRENT_OTP.toString()){
+            res.json({message:"success"})
+        }else{
+            res.json({message:"invalid otp"})
+        }
+    }catch(error){
+        console.log(error)
+        res.json({message:"error"})
+    }
+})
+
+
 
 
 

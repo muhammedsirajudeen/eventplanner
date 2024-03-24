@@ -15,13 +15,14 @@ import AddEventscreen from './Screens/AddEventScreen';
 import AddAttendaceScreen from './Screens/AddAttendanceScreen';
 import AddNotice from './Screens/AddNotice';
 import NoticeScreen from './Screens/NoticeScreen';
+import EmailVerification from './Screens/EmailVerificationScreen';
 export default function App() {
-  const url="http://192.168.1.6:3000"
+  const url="http://10.0.2.2:3000"
   const Stack=createNativeStackNavigator()
   return (
     <UserContext.Provider value={url}>
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName='Signup' >
         <Stack.Screen name="Signup" component={Signupscreen}/>
         <Stack.Screen name="Login" component={Loginscreen}/>
         <Stack.Screen name="Home" component={Homescreen}/>
@@ -34,7 +35,8 @@ export default function App() {
         <Stack.Screen name="AddAttendance" component={AddAttendaceScreen}/>
         <Stack.Screen name="AddNotice" component={AddNotice}/>
         <Stack.Screen name="Notice" component={NoticeScreen}/>
-
+        <Stack.Screen name="Email" component={EmailVerification}/>
+        
       </Stack.Navigator>
     </NavigationContainer>
     </UserContext.Provider>

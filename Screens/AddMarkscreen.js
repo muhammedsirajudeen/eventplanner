@@ -1,10 +1,10 @@
 import React, { useState,useContext,useEffect } from "react";
-import { View, TextInput, Button, Alert } from "react-native";
+import { View, TextInput, Button, Alert, TouchableOpacity, Text } from "react-native";
 import addmarkStyle from "../Stylesheet/addmarkStyle";
 import UserContext from "../Context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SelectDropdown from "react-native-select-dropdown";
-
+import Dialog from "../components/dialog";
 import axios from "axios"
 export default function AddMarkscreen() {
   const [name, setName] = useState("");
@@ -13,12 +13,13 @@ export default function AddMarkscreen() {
   const url = useContext(UserContext);
   const [selectedValue,setSelectedValue]=useState()
   const [students,setStudents]=useState([])
+  const [open,setOpen]=useState(false)
   useEffect(()=>{
     async function getAllStudents(){
       let response=(await axios.get(url+"/student/student")).data
       let students=[]
       response.students.forEach((student)=>{
-        students.push(student.username)
+        students.push(student.admissionnumber)
 
       })
       console.log(students)
@@ -31,7 +32,7 @@ export default function AddMarkscreen() {
     // Data upload to server logic here
     let token=await AsyncStorage.getItem('token')
     let response=(await axios.post(url+"/grade/addgrade",{
-      name:name,
+      admissionnumber:name,
       grade:grade,
       token:token,
       semester:semester
@@ -42,11 +43,16 @@ export default function AddMarkscreen() {
       Alert.alert("grade have been updated")
     }
   }
+  async function editHandler(){
+    setOpen(true)
+
+  }
 
   return (
+    <>
     <View style={addmarkStyle.maincontainer}>
       <View style={addmarkStyle.subcontainer}>
-      <SelectDropdown defaultButtonText="select student"
+      <SelectDropdown defaultButtonText="select admission number"
                         data={students}
                         onSelect={(selectedItem, index) => {
                             console.log(selectedItem)
@@ -78,7 +84,14 @@ export default function AddMarkscreen() {
           onChangeText={(value) => setSemester(value)}
         />
         <Button title="Upload Mark" onPress={uploadHandler} color="#007BFF" />
+        <TouchableOpacity style={addmarkStyle.button} onPress={editHandler} >
+          <Text style={addmarkStyle.buttontext} >EDIT/DELETE</Text>
+        </TouchableOpacity>
       </View>
     </View>
+    {open?
+    <Dialog setOpen={setOpen} querytype={"grade"} students={students} /> :<></>  
+    }
+    </>
   );
 }

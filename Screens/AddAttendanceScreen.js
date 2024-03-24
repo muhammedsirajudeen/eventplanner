@@ -1,10 +1,10 @@
 import React, { useState,useContext,useEffect } from "react";
-import { View, TextInput, Button, Alert } from "react-native";
+import { View, TextInput, Button, Alert,TouchableOpacity,Text } from "react-native";
 import addmarkStyle from "../Stylesheet/addmarkStyle";
 import UserContext from "../Context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SelectDropdown from "react-native-select-dropdown";
-
+import Dialog from "../components/dialog";
 import axios from "axios"
 export default function AddAttendaceScreen() {
   const [name, setName] = useState("");
@@ -13,12 +13,14 @@ export default function AddAttendaceScreen() {
   const [selectedValue,setSelectedValue]=useState()
   const [students,setStudents]=useState([])
   const [semester,setSemester]=useState("")
+  const [open,setOpen]=useState(false)
+
   useEffect(()=>{
     async function getAllStudents(){
       let response=(await axios.get(url+"/student/student")).data
       let students=[]
       response.students.forEach((student)=>{
-        students.push(student.username)
+        students.push(student.admissionnumber)
 
       })
       console.log(students)
@@ -26,12 +28,16 @@ export default function AddAttendaceScreen() {
     }
     getAllStudents()
   },[])
+  async function editHandler(){
+    setOpen(true)
+
+  }
 
   async function uploadHandler() {
     // Data upload to server logic here
     let token=await AsyncStorage.getItem('token')
     let response=(await axios.post(url+"/grade/addattendace",{
-      name:name,
+      admissionnumber:name,
       attendance:attendace,
       token:token,
       semester:semester
@@ -44,9 +50,11 @@ export default function AddAttendaceScreen() {
   }
 
   return (
+    <>
+    
     <View style={addmarkStyle.maincontainer}>
       <View style={addmarkStyle.subcontainer}>
-      <SelectDropdown defaultButtonText="select student"
+      <SelectDropdown defaultButtonText="select admission number"
                         data={students}
                         onSelect={(selectedItem, index) => {
                             console.log(selectedItem)
@@ -79,7 +87,14 @@ export default function AddAttendaceScreen() {
         />
 
         <Button title="Upload Attendance" onPress={uploadHandler} color="#007BFF" />
+        <TouchableOpacity style={addmarkStyle.button} onPress={editHandler} >
+          <Text style={addmarkStyle.buttontext} >EDIT/DELETE</Text>
+        </TouchableOpacity>
       </View>
     </View>
+    {open?
+    <Dialog setOpen={setOpen} querytype={"attendance"} students={students} /> :<></>  
+    }
+    </>
   );
 }

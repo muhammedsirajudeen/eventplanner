@@ -22,6 +22,18 @@ const addmarkStyle = StyleSheet.create({
     borderColor: "#CCCCCC",
     borderWidth: 1,
   },
+  button:{
+    marginTop:10,
+    backgroundColor:'green',
+    padding:6,
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center"
+  },
+  buttontext:{
+    color:"white",
+    fontWeight:"800"
+  }
 });
 
 export default addmarkStyle;

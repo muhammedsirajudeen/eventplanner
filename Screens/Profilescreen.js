@@ -1,5 +1,5 @@
 import { useEffect,useContext, useState } from "react"
-import { View,Text, ScrollView } from "react-native"
+import { View,Text, ScrollView,Image } from "react-native"
 import UserContext from "../Context"
 import axios from "axios"
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -12,12 +12,14 @@ export default function Profilescreen(){
     const [attendance,setAttendance]=useState([])
     useEffect(()=>{
         async function getProfile(){
+            console.log("hit")
             let token=await AsyncStorage.getItem('token')
             console.log(token)
             let response=(await axios.post(url+"/grade/details",{
                 token:token
                 }
               )).data
+              console.log("the response is ")
             console.log(response)
             setProfile(response.profile)
             setGrades(response.grade)
@@ -30,7 +32,7 @@ export default function Profilescreen(){
             <Text style={profileStyle.heading} >Profile</Text>
 
             <View style={profileStyle.profilecontainer}>
-                <View style={profileStyle.profileimage}></View>
+                <Image style={profileStyle.profileimage} source={require("../assets/person.png")} ></Image>
                 <Text style={profileStyle.profiletext}>{profile?.username}</Text>
                 <Text style={profileStyle.profiletextsub}>{profile?.college}</Text>
 

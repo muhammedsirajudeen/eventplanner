@@ -7,7 +7,8 @@ const UserSchema=mongoose.Schema(
         username:String,
         password:String,
         course:String,
-        college:String
+        college:String,
+        admissionnumber:String,
     }
 )
 

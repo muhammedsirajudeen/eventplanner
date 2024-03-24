@@ -2,7 +2,7 @@ const mongoose=require("mongoose")
 
 const GradeModelSchema=mongoose.Schema(
     {
-        name:String,
+        admissionnumber:String,
         grade:String,
         college:String,
         semester:String

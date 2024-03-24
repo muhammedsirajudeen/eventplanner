@@ -7,6 +7,7 @@ import SelectDropdown from "react-native-select-dropdown";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Loginscreen( {navigation} ){
+    const [admissionnumber,setAdmissionnumber]=useState("")
     const url=useContext(UserContext)
     const [username,setUsername]=useState()
     const [password,setPassword]=useState()
@@ -30,7 +31,8 @@ export default function Loginscreen( {navigation} ){
                 username:username,
                 password:password,
                 course:course,
-                college:college
+                college:college,
+                admissionnumber:admissionnumber
             })
             if(response.data.message!=="success"){
                 Alert.alert(response.data.message)
@@ -39,8 +41,8 @@ export default function Loginscreen( {navigation} ){
                 setConfirmpassword("")
             }else{
                 Alert.alert("user created")
-
-                navigation.navigate('Login')
+                navigation.navigate('Email')
+                // navigation.navigate('Login')
             }
             
         }
@@ -52,6 +54,7 @@ export default function Loginscreen( {navigation} ){
     return(
         <View style={loginStyle.maincontainer} >
             <View style={loginStyle.logincontainer}>
+                <TextInput style={loginStyle.textinput} onChangeText={(value)=> setAdmissionnumber(value)} placeholder="enter your admission number" value={admissionnumber} ></TextInput>
                 <TextInput style={loginStyle.textinput} onChangeText={(value)=> setUsername(value)} placeholder="enter your username" value={username} ></TextInput>
                 <TextInput style={loginStyle.textinput} onChangeText={(value)=> setPassword(value) } placeholder="enter your password"value={password} ></TextInput>
                 <TextInput style={loginStyle.textinput} onChangeText={(value)=> setConfirmpassword(value) } placeholder="confirm your password" value={confirmpassword} ></TextInput>

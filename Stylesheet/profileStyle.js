@@ -29,7 +29,6 @@ let profileStyle=StyleSheet.create(
             width:100,
             backgroundColor:"white",
             borderRadius:1000,
-            elevation:10,
             marginTop:10
         },
         profiletext:{

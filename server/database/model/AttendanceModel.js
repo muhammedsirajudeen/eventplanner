@@ -2,7 +2,7 @@ const mongoose=require("mongoose")
 
 const AttendanceModelSchema=mongoose.Schema(
     {
-        name:String,
+        admissionnumber:String,
         attendance:String,
         semester:String,
         college:String,

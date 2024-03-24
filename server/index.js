@@ -7,6 +7,11 @@ const event=require("./event/event")
 const grade=require("./grade/grade")
 const student=require("./student/student")
 app.use(cors())
+app.use((req, res, next) => {
+    
+    req.setTimeout(4000)
+    next();
+  });
 app.use(express.json())
 dbConnect()
 //add route here
@@ -20,4 +25,4 @@ app.get('/',(req,res)=>{
 })
 
 //starting server here
-app.listen(3000,'192.168.1.6',()=> console.log("server started at 3000"))
+app.listen(3000,()=> console.log("server started at 3000"))

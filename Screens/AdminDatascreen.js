@@ -34,12 +34,7 @@ export default function AdminDatascreen({ navigation }) {
       </View>
 
       <ScrollView contentContainerStyle={admindataStyle.scrollContainer}>
-        <TouchableOpacity
-          style={[admindataStyle.button, admindataStyle.addScheduleButton]}
-          onPress={() => navigation.navigate("AddSchedule")}
-        >
-          <Text style={admindataStyle.buttonText}>Add Schedule</Text>
-        </TouchableOpacity>
+
         <TouchableOpacity
           style={[admindataStyle.button, admindataStyle.addAttendanceButton]}
           onPress={() => navigation.navigate("AddAttendance")}

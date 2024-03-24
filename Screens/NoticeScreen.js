@@ -1,5 +1,5 @@
 import { useEffect,useContext, useState } from "react"
-import { View,Text, ScrollView } from "react-native"
+import { View,Text, ScrollView, StyleSheet } from "react-native"
 import UserContext from "../Context"
 import axios from "axios"
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -32,3 +32,4 @@ export default function NoticeScreen(){
         </ScrollView>
     )
 }
+

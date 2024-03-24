@@ -32,6 +32,7 @@ export default function Loginscreen({navigation}){
         }
         }
 
+
     return(
         <View style={loginStyle.maincontainer} >
             <View style={loginStyle.logincontainer}>
@@ -42,8 +43,9 @@ export default function Loginscreen({navigation}){
                 <Button title="Login" onPress={handleLogin} ></Button>
                 </View>
                 <View style={loginStyle.button}>
-                <Button title="admin login" onPress={()=> navigation.navigate('Admin')}></Button>
+                <Button title="faculty login" onPress={()=> navigation.navigate('Admin')}></Button>
 
+                <Button title="admin login" onPress={()=> navigation.navigate('Admin')}></Button>
                 </View>
             </View>
 
